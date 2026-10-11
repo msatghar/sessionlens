@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Fails if any committed file contains personal details that should never be published:
-// your home folder path, your OS username, your git email, and anything listed in
+// your home folder path, your git email, and anything listed in
 // .privacy-patterns (one entry per line, git-ignored so the list itself stays private).
 
 import { execFileSync } from 'node:child_process'
@@ -13,8 +13,10 @@ const add = (p) => {
   if (v.length >= 4) patterns.add(v.toLowerCase())
 }
 
+// Block the home folder path (e.g. /Users/<name>) rather than the bare username,
+// since the username can legitimately appear in public names like an npm scope.
 add(homedir())
-add(userInfo().username)
+add(`/home/${userInfo().username}`)
 try {
   add(execFileSync('git', ['config', 'user.email'], { encoding: 'utf8' }))
 } catch {}
