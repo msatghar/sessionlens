@@ -5,7 +5,7 @@
 
 import { createServer } from 'node:http'
 import { createHash } from 'node:crypto'
-import { createReadStream, existsSync, readFileSync } from 'node:fs'
+import { createReadStream, existsSync, readFileSync, realpathSync } from 'node:fs'
 import { open, readdir, stat } from 'node:fs/promises'
 import { homedir } from 'node:os'
 import { basename, extname, join, resolve, sep } from 'node:path'
@@ -228,4 +228,12 @@ async function main() {
   })
 }
 
-if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) main()
+// npx and global installs start us through a symlink in node_modules/.bin, so compare real paths.
+const isEntry = (() => {
+  try {
+    return Boolean(process.argv[1]) && realpathSync(process.argv[1]) === realpathSync(fileURLToPath(import.meta.url))
+  } catch {
+    return false
+  }
+})()
+if (isEntry) main()

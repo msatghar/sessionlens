@@ -1,4 +1,6 @@
-import { mkdtemp, mkdir, writeFile, rm } from 'node:fs/promises'
+import { mkdtemp, mkdir, writeFile, rm, symlink } from 'node:fs/promises'
+import { execFileSync } from 'node:child_process'
+import { fileURLToPath } from 'node:url'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { request } from 'node:http'
@@ -22,6 +24,14 @@ beforeAll(async () => {
 afterAll(() => rm(dir, { recursive: true, force: true }))
 
 describe('cli', () => {
+  it('runs when started through a symlink, the way npx and global installs start it', async () => {
+    const bin = fileURLToPath(new URL('../bin/sessionlens.mjs', import.meta.url))
+    const link = join(dir, 'sessionlens-link')
+    await symlink(bin, link)
+    const out = execFileSync(process.execPath, [link, '--version'], { encoding: 'utf8' }).trim()
+    expect(out).toMatch(/^\d+\.\d+\.\d+$/)
+  })
+
   it('parses options', () => {
     expect(parseArgs(['--port', '5000', '--no-open'])).toMatchObject({ port: 5000, open: false })
     expect(() => parseArgs(['--port', 'abc'])).toThrow()
