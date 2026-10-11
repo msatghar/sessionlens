@@ -1,5 +1,7 @@
 # sessionlens
 
+[![npm](https://img.shields.io/npm/v/@manalisatghar/sessionlens)](https://www.npmjs.com/package/@manalisatghar/sessionlens) [![CI](https://github.com/msatghar/sessionlens/actions/workflows/ci.yml/badge.svg)](https://github.com/msatghar/sessionlens/actions/workflows/ci.yml) [![license: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+
 **See what your AI coding agent actually did.**
 
 sessionlens turns Claude Code session logs into a readable timeline: every prompt, reply, tool call, command, file edit and error, in order. A scorecard then checks *how* the agent worked: did it test its changes, keep you informed, own its mistakes and wrap up clearly?
