@@ -10,14 +10,28 @@ interface Props {
 
 export function SessionHeader({ session, scorecard, loading }: Props) {
   const { stats } = session
-  const totalIn = stats.usage.input + stats.usage.cacheRead + stats.usage.cacheWrite
-  const chips: [string, string][] = [
-    ['Duration', formatDuration(stats.durationMs)],
-    ['Your prompts', String(stats.prompts)],
-    ['Tool calls', String(stats.toolCalls)],
-    ['Tool errors', String(stats.toolErrors)],
-    ['Files changed', String(stats.filesTouched.length)],
-    ['Tokens in / out', `${formatTokens(totalIn)} / ${formatTokens(stats.usage.output)}`],
+  const { usage } = stats
+  const totalIn = usage.input + usage.cacheRead + usage.cacheWrite
+  const cachedPct = totalIn ? Math.round((usage.cacheRead / totalIn) * 100) : 0
+  const tokenHelp = [
+    'Tokens the model read (in) and wrote (out), summed over every step.',
+    `Fresh input: ${usage.input.toLocaleString()}`,
+    `Read from cache: ${usage.cacheRead.toLocaleString()}`,
+    `Written to cache: ${usage.cacheWrite.toLocaleString()}`,
+    `Output: ${usage.output.toLocaleString()}`,
+  ].join('\n')
+  const chips: { label: string; value: string; note?: string; help?: string }[] = [
+    { label: 'Duration', value: formatDuration(stats.durationMs) },
+    { label: 'Your prompts', value: String(stats.prompts) },
+    { label: 'Tool calls', value: String(stats.toolCalls) },
+    { label: 'Tool errors', value: String(stats.toolErrors) },
+    { label: 'Files changed', value: String(stats.filesTouched.length) },
+    {
+      label: 'Tokens in / out',
+      value: `${formatTokens(totalIn)} / ${formatTokens(usage.output)}`,
+      note: totalIn ? `${cachedPct}% of input from cache` : undefined,
+      help: tokenHelp,
+    },
   ]
 
   return (
@@ -38,10 +52,11 @@ export function SessionHeader({ session, scorecard, loading }: Props) {
         </div>
       </div>
       <dl className="chips">
-        {chips.map(([label, value]) => (
-          <div className="chip" key={label}>
+        {chips.map(({ label, value, note, help }) => (
+          <div className="chip" key={label} title={help} tabIndex={help ? 0 : undefined}>
             <dt>{label}</dt>
             <dd className={label === 'Tool errors' && stats.toolErrors > 0 ? 'error-text' : ''}>{value}</dd>
+            {note && <dd className="chip-note">{note}</dd>}
           </div>
         ))}
       </dl>

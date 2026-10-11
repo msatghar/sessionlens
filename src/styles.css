@@ -287,6 +287,16 @@ code,
   font-variant-numeric: tabular-nums;
 }
 
+.chip dd.chip-note {
+  font-weight: 400;
+  font-size: 11.5px;
+  color: var(--muted);
+}
+
+.chip[title] {
+  cursor: help;
+}
+
 .tabs {
   display: flex;
   gap: 4px;
