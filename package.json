@@ -1,0 +1,47 @@
+{
+  "name": "sessionlens",
+  "version": "0.1.0",
+  "description": "See what your AI coding agent actually did. A local, private viewer and scorecard for Claude Code session logs.",
+  "type": "module",
+  "license": "MIT",
+  "bin": {
+    "sessionlens": "bin/sessionlens.mjs"
+  },
+  "files": [
+    "bin",
+    "dist"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "claude-code",
+    "ai-agents",
+    "coding-agents",
+    "llm",
+    "evaluation",
+    "observability",
+    "devtools",
+    "cli"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "build:demo": "tsc --noEmit && vite build --mode demo",
+    "test": "vitest run",
+    "privacy": "node scripts/privacy-check.mjs",
+    "start": "node bin/sessionlens.mjs",
+    "prepublishOnly": "npm run privacy && npm test && npm run build"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "typescript": "^5.5.4",
+    "vite": "^5.4.2",
+    "vitest": "^2.0.5"
+  }
+}

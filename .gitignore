@@ -1,0 +1,13 @@
+node_modules/
+dist/
+demo-dist/
+*.log
+.DS_Store
+
+# Your own words to block from ever being committed (name, email, usernames).
+# One per line. Used by `npm run privacy`. Never committed.
+.privacy-patterns
+
+# Never commit real session logs.
+*.jsonl
+!src/data/*.jsonl
