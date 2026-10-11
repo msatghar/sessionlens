@@ -73,7 +73,7 @@ The parser (`src/lib/parse.ts`) is tolerant by design: unknown entry types are i
 
 ## How it was built
 
-Built with Claude Code, which felt fitting for a tool that reviews Claude Code sessions. The scorecard checks come from hands-on experience evaluating coding agent transcripts.
+Built with Claude Code, which felt fitting for a tool that reviews Claude Code sessions.
 
 ## License
 
