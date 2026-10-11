@@ -66,7 +66,7 @@ export function App() {
       <main className="main">
         {source?.mode === 'demo' && (
           <div className="banner">
-            You're looking at made-up sample sessions. Run <code>npx sessionlens</code> to see your own, privately on your
+            You're looking at made-up sample sessions. Run <code>npx @manalisatghar/sessionlens</code> to see your own, privately on your
             machine.
           </div>
         )}

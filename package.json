@@ -1,5 +1,5 @@
 {
-  "name": "sessionlens",
+  "name": "@manalisatghar/sessionlens",
   "version": "0.1.0",
   "description": "See what your AI coding agent actually did. A local, private viewer and scorecard for Claude Code session logs.",
   "type": "module",

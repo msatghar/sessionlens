@@ -7,7 +7,7 @@ sessionlens turns Claude Code session logs into a readable timeline: every promp
 It runs entirely on your machine. Your logs are never uploaded.
 
 ```bash
-npx sessionlens
+npx @manalisatghar/sessionlens
 ```
 
 ![sessionlens timeline and scorecard](docs/screenshot.png)
@@ -46,12 +46,12 @@ Checks that don't apply (for example, no code was changed) are marked as such an
 ## Usage
 
 ```bash
-npx sessionlens                 # reads ~/.claude/projects and opens your browser
-npx sessionlens --dir ./logs    # use a different folder
-npx sessionlens --port 5000 --no-open
+npx @manalisatghar/sessionlens                 # reads ~/.claude/projects and opens your browser
+npx @manalisatghar/sessionlens --dir ./logs    # use a different folder
+npx @manalisatghar/sessionlens --port 5000 --no-open
 ```
 
-Requires Node 18 or newer.
+Requires Node 18 or newer. To install it globally instead: `npm i -g @manalisatghar/sessionlens`, then run `sessionlens`.
 
 ## Development
 
